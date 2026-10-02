@@ -1,0 +1,9 @@
+@import './styles/variables.css';
+
+@import './styles/globals.css';
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 72px;
+  }
+}

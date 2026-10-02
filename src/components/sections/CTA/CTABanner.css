@@ -1,0 +1,96 @@
+.cta-banner-section {
+    padding: 40px 0 70px;
+}
+
+.cta-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    background: linear-gradient(135deg, var(--color-dark-surface) 0%, var(--color-dark) 100%);
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--radius-xl);
+    padding: 48px 52px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-dark);
+}
+
+.cta-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: radial-gradient(circle at 100% 50%, rgba(227, 30, 36, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.cta-banner-title {
+    font-size: clamp(22px, 4vw, 28px);
+    font-weight: 900;
+    color: var(--color-text-white);
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+
+.cta-banner-desc {
+    font-size: clamp(14px, 2vw, 15px);
+    color: var(--color-text-light);
+    max-width: 540px;
+    line-height: 1.55;
+}
+
+.cta-banner-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-family);
+    white-space: nowrap;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    background-color: var(--color-primary);
+    color: var(--color-text-white);
+    min-height: 42px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.cta-banner-btn:hover {
+    background-color: var(--color-primary-hover);
+}
+
+@media (max-width: 768px) {
+    .cta-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 36px 24px;
+        gap: 24px;
+    }
+
+    .cta-banner-desc {
+        max-width: 100%;
+    }
+
+    .cta-banner .btn,
+    .cta-banner-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-banner-section {
+        padding: 28px 0 48px;
+    }
+
+    .cta-banner {
+        padding: 28px 16px;
+        border-radius: var(--radius-lg);
+    }
+}

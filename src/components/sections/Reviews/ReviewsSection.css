@@ -1,0 +1,186 @@
+.reviews-section {
+  padding: clamp(32px, 5vw, 60px) clamp(16px, 3vw, 20px);
+  background: var(--color-bg-page);
+  text-align: center;
+  scroll-margin-top: 80px;
+}
+
+.reviews-section-title {
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-dark);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+.reviews-section-subtitle {
+  font-size: clamp(14px, 2vw, 16px);
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}
+
+/* Кнопка-триггер аккордеона */
+.reviews-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--color-dark);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.reviews-toggle-btn:hover {
+  color: var(--color-text-secondary);
+  opacity: 0.85;
+}
+
+.reviews-toggle-icon {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+/* Эффект при наведении на верхнюю иконку-триггер */
+.reviews-toggle-btn--top:hover .reviews-toggle-icon {
+  transform: translateY(3px);
+  opacity: 0.75;
+}
+
+/* Поворот верхней иконки при раскрытом состоянии */
+.reviews-toggle-btn--top.is-open .reviews-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.reviews-toggle-btn--top.is-open:hover .reviews-toggle-icon {
+  transform: rotate(180deg) translateY(3px);
+}
+
+/* Плавная анимация раскрытия/сворачивания через CSS Grid */
+.reviews-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease,
+              margin-top 0.35s ease;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.reviews-accordion-content.is-expanded {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 28px;
+}
+
+.reviews-accordion-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.reviews-rating-badge {
+  border: none;
+  display: block;
+  margin: 0 auto 32px;
+}
+
+.reviews-widget-wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: var(--color-card-bg);
+  position: relative;
+}
+
+.reviews-widget-iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  display: block;
+}
+
+.reviews-widget-link {
+  display: block;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  background: var(--color-card-bg);
+  border-top: 1px solid var(--color-card-border);
+}
+
+.reviews-cta {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 14px 32px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.reviews-cta:hover {
+  box-shadow: var(--shadow-primary);
+}
+
+/* Нижняя кнопка сворачивания */
+.reviews-bottom-action {
+  margin-top: 28px;
+}
+
+.reviews-toggle-btn--bottom:hover .reviews-toggle-icon {
+  transform: translateY(-3px);
+  opacity: 0.75;
+}
+
+/* Адаптивность для мобильных экранов */
+@media (max-width: 768px) {
+  .reviews-section {
+    padding: 30px 16px;
+  }
+
+  .reviews-section-title {
+    font-size: 24px;
+  }
+
+  .reviews-section-subtitle {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .reviews-accordion-content.is-expanded {
+    margin-top: 20px;
+  }
+
+  .reviews-widget-iframe {
+    height: 500px;
+  }
+
+  .reviews-widget-wrapper {
+    max-width: 100%;
+  }
+
+  .reviews-bottom-action {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-widget-iframe {
+    height: 420px;
+  }
+
+  .reviews-cta {
+    width: 100%;
+    padding: 12px 20px;
+  }
+}

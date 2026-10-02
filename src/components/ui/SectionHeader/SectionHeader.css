@@ -1,0 +1,38 @@
+/* ===== Заголовок секции (.section-header) ===== */
+.section-header {
+    text-align: center;
+    margin-bottom: clamp(28px, 5vw, 50px);
+}
+
+.section-tag {
+    color: var(--color-primary);
+    font-size: clamp(16px, 3vw, 24px);
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.section-title {
+    font-size: clamp(24px, 4.5vw, 36px);
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    color: var(--color-dark);
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.section-subtitle {
+    font-size: clamp(14px, 2.2vw, 20px);
+    color: var(--color-text-secondary);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .section-subtitle {
+        font-size: clamp(14px, 3.5vw, 16px);
+    }
+}

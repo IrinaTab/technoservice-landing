@@ -1,0 +1,318 @@
+/* ============================================================
+   Footer — полный набор стилей
+   ============================================================ */
+
+.footer {
+    background-color: var(--color-dark);
+    color: var(--color-text-light);
+    padding: 72px 0 32px;
+    font-size: 14px;
+    border-top: 1px solid var(--color-dark-border);
+}
+
+/* === Сетка: 4 колонки === */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.3fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+    align-items: start;
+}
+
+/* Базовая колонка */
+.footer-col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== Колонка 1: Бренд ===== */
+.footer-col--brand {
+    gap: 0;
+}
+
+.footer-logo {
+    display: inline-block;
+    margin-bottom: 16px;
+    transition: opacity var(--transition-fast);
+}
+
+.footer-logo:hover {
+    opacity: 0.8;
+}
+
+.footer-logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.footer-desc {
+    color: var(--color-text-light);
+    line-height: 1.65;
+    font-size: 13.5px;
+    margin-bottom: 22px;
+}
+
+/* Кнопка «Оставить заявку» */
+.footer-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: var(--color-primary);
+    color: var(--color-text-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+    align-self: flex-start;
+    white-space: nowrap;
+}
+
+.footer-cta-btn:hover {
+    background-color: var(--color-primary-hover);
+    box-shadow: var(--shadow-primary);
+    transform: translateY(-1px);
+}
+
+.footer-cta-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.footer-cta-btn svg {
+    flex-shrink: 0;
+}
+
+/* ===== Заголовки колонок ===== */
+.footer-heading {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--color-text-white);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== Колонка 2: Услуги ===== */
+.footer-services-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-service-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--color-text-light);
+    text-decoration: none;
+    line-height: 1.45;
+    font-size: 13.5px;
+    transition: color var(--transition-fast);
+}
+
+.footer-service-link:hover {
+    color: var(--color-primary-light);
+}
+
+/* Иконка услуги: красная, без фона */
+.footer-service-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--color-primary);
+    background: transparent;
+    border: none;
+    padding: 0;
+    line-height: 1;
+}
+
+.footer-service-icon svg {
+    display: block;
+    stroke: var(--color-primary);
+}
+
+/* ===== Колонка 3: Контакты ===== */
+.footer-contacts-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 14px;
+    color: var(--color-text-light);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+.footer-contact-item a,
+.footer-contact-item span {
+    color: var(--color-text-light);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.footer-contact-item a:hover {
+    color: var(--color-primary-light);
+}
+
+/* Иконка контакта: красная */
+.footer-contact-icon {
+    color: var(--color-primary);
+    stroke: var(--color-primary);
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+/* ===== Колонка 4: Навигация ===== */
+.footer-nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: 13.5px;
+    line-height: 1.4;
+    transition: color var(--transition-fast);
+}
+
+.footer-nav-link:hover {
+    color: var(--color-primary-light);
+}
+
+/* Кнопка-якорь: сброс браузерных стилей, внешне = .footer-nav-link */
+.footer-nav-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+}
+
+/* Иконка навигации: красная, без фона */
+.footer-nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-primary);
+    background: transparent;
+    border: none;
+    padding: 0;
+    line-height: 1;
+}
+
+.footer-nav-icon svg {
+    display: block;
+    stroke: var(--color-primary);
+}
+
+/* ===== Нижняя полоса ===== */
+.footer-bottom {
+    border-top: 1px solid var(--color-dark-border);
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.footer-bottom-copy {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.footer-bottom-privacy {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.footer-bottom-privacy:hover {
+    color: var(--color-primary-light);
+    text-decoration: underline;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Планшет: 2 колонки */
+@media (max-width: 1024px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px 48px;
+    }
+}
+
+/* Мобильный: 1 колонка */
+@media (max-width: 768px) {
+    .footer {
+        padding: 52px 0 28px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 36px;
+    }
+
+    .footer-desc {
+        font-size: 13px;
+    }
+
+    .footer-cta-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding-top: 20px;
+    }
+
+    .footer-bottom-privacy {
+        white-space: normal;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 40px 0 24px;
+    }
+
+    .footer-grid {
+        gap: 24px;
+        margin-bottom: 28px;
+    }
+}

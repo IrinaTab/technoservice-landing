@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Запрещаем индексировать служебные страницы
+Disallow: /main
+
+# Разрешаем всё остальное
+Sitemap: https://orgtechservice.ru/sitemap.xml

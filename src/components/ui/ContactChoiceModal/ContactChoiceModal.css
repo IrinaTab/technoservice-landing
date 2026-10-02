@@ -1,0 +1,147 @@
+/* ===== CONTACT CHOICE MODAL ===== */
+.contact-modal-content {
+    padding: 4px 0;
+}
+
+.contact-modal-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--color-dark);
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.contact-modal-subtitle {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.contact-modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.contact-modal-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1.5px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-card-bg);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    width: 100%;
+    font-family: var(--font-family);
+    box-shadow: var(--shadow-xs);
+    text-decoration: none;
+    color: inherit;
+}
+
+.contact-modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.contact-modal-btn-phone {
+    border-color: rgba(22, 163, 74, 0.3);
+}
+
+.contact-modal-btn-phone:hover {
+    border-color: var(--color-success);
+    background: var(--color-success-light);
+}
+
+.contact-modal-btn-request {
+    border-color: rgba(227, 30, 36, 0.3);
+}
+
+.contact-modal-btn-request:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.contact-modal-btn-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.contact-modal-btn-phone .contact-modal-btn-icon {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.contact-modal-btn-phone:hover .contact-modal-btn-icon {
+    background: var(--color-success);
+    color: var(--color-text-white);
+}
+
+.contact-modal-btn-request .contact-modal-btn-icon {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.contact-modal-btn-request:hover .contact-modal-btn-icon {
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.contact-modal-btn-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-modal-btn-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.contact-modal-btn-phone-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-success);
+}
+
+.contact-modal-btn-desc {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.contact-modal-btn-arrow {
+    color: var(--color-text-light);
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.contact-modal-btn:hover .contact-modal-btn-arrow {
+    transform: translateX(4px);
+    color: var(--color-dark);
+}
+
+@media (max-width: 480px) {
+    .contact-modal-btn {
+        padding: 12px 14px;
+        gap: 12px;
+    }
+
+    .contact-modal-btn-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .contact-modal-title {
+        font-size: 20px;
+    }
+}
