@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
-import './ReviewsSection.css';
+import { useState, useRef } from 'react'
+import './ReviewsSection.css'
 
-const YANDEX_ORG_ID = '35023895183';
-const YANDEX_ORG_URL = 'https://yandex.ru/maps/org/zapravka_kartridzhey/35023895183/';
+const YANDEX_ORG_ID = '35023895183'
+const YANDEX_ORG_URL = 'https://yandex.ru/maps/org/zapravka_kartridzhey/35023895183/'
 
 export const ReviewsSection = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
