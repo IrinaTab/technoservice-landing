@@ -12,6 +12,7 @@
     animation: fadeIn 0.2s ease-out;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .modal-content {
@@ -176,14 +177,24 @@
 @media (max-width: 480px) {
     .modal-overlay {
         padding: 8px;
+        /* Прижимаем к верху — так модалка не обрезается и скроллится внутри */
         align-items: flex-start;
+        /* Убираем height: 100dvh — пусть высота определяется inset: 0 */
+        overflow-y: auto;
+        overscroll-behavior: contain;
     }
 
     .modal-content {
         padding: 24px 16px 20px;
         border-radius: var(--radius-lg);
         max-width: 100%;
+        /* Единственное ограничение высоты — без дублей */
         max-height: calc(100dvh - 16px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        /* Центрирование по горизонтали */
+        margin: 0 auto;
     }
 
     .modal-title {
@@ -210,7 +221,7 @@
     .form-select,
     .form-textarea {
         padding: 10px 12px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .form-textarea {

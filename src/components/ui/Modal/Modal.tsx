@@ -21,7 +21,9 @@ export interface ModalProps {
  * Возможности:
  * - клик по оверлею закрывает
  * - закрытие по Escape
- * - блокировка скролла body + компенсация ширины скроллбара
+ * - блокировка скролла body через position: fixed (мобильные браузеры
+ *   не сдвигают страницу при фокусе на input)
+ * - восстановление позиции скролла после закрытия
  * - автофокус на первом интерактивном элементе
  * - фокус остаётся внутри модалки (focus trap)
  */
@@ -47,8 +49,18 @@ export const Modal = ({
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
         const prevOverflow = document.body.style.overflow
         const prevPaddingRight = document.body.style.paddingRight
+        const prevPosition = document.body.style.position
+        const prevTop = document.body.style.top
+        const prevWidth = document.body.style.width
+
+        // Запоминаем текущую позицию скролла, чтобы вернуть её после закрытия
+        const scrollY = window.scrollY
 
         document.body.style.overflow = 'hidden'
+        // Фиксация body — мобильные браузеры не будут скроллить страницу при фокусе
+        document.body.style.position = 'fixed'
+        document.body.style.top = `-${scrollY}px`
+        document.body.style.width = '100%'
         if (scrollbarWidth > 0) {
             document.body.style.paddingRight = `${scrollbarWidth}px`
         }
@@ -59,6 +71,11 @@ export const Modal = ({
             document.removeEventListener('keydown', handleKeyDown)
             document.body.style.overflow = prevOverflow
             document.body.style.paddingRight = prevPaddingRight
+            document.body.style.position = prevPosition
+            document.body.style.top = prevTop
+            document.body.style.width = prevWidth
+            // Возвращаем страницу на ту же позицию, где она была
+            window.scrollTo(0, scrollY)
         }
     }, [isOpen, onClose])
 
