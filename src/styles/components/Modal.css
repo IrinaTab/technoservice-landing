@@ -10,6 +10,8 @@
     z-index: 1000;
     padding: 20px;
     animation: fadeIn 0.2s ease-out;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-content {
@@ -22,6 +24,9 @@
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--color-card-border);
     animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+    margin: auto;
 }
 
 .modal-close {
@@ -170,12 +175,15 @@
 
 @media (max-width: 480px) {
     .modal-overlay {
-        padding: 12px;
+        padding: 8px;
+        align-items: flex-start;
     }
 
     .modal-content {
-        padding: 28px 20px;
+        padding: 24px 16px 20px;
         border-radius: var(--radius-lg);
+        max-width: 100%;
+        max-height: calc(100dvh - 16px);
     }
 
     .modal-title {
@@ -184,11 +192,28 @@
 
     .modal-subtitle {
         font-size: 13px;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
     }
 
     .modal-close {
-        top: 14px;
-        right: 14px;
+        top: 12px;
+        right: 12px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .form-textarea {
+        min-height: 64px;
     }
 }

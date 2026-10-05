@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useModalContext } from '../../../context/ModalContext';
 import './ScrollToTopButton.css';
 
 /**
  * Reusable "Scroll to Top" button.
  * Appears after the user scrolls down a bit and, when clicked,
  * smoothly scrolls the page to the top.
- * The visual style is defined in an external CSS file using project variables.
+ * Скрывается, когда открыта любая модалка (контактная или заявки).
  */
 export const ScrollToTopButton = () => {
   const [visible, setVisible] = useState(false);
+  const { isContactModalOpen, isRequestModalOpen } = useModalContext();
 
   // Toggle visibility based on scroll position
   useEffect(() => {
@@ -25,12 +27,16 @@ export const ScrollToTopButton = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // ALWAYS render button; visibility controlled via CSS opacity
+  const isAnyModalOpen = isContactModalOpen || isRequestModalOpen;
+  const shouldShow = visible && !isAnyModalOpen;
+
   return (
     <button
-      className={`scroll-to-top-btn ${visible ? 'is-visible' : ''}`}
+      className={`scroll-to-top-btn ${shouldShow ? 'is-visible' : ''}`}
       onClick={scrollToTop}
       aria-label="Scroll to top"
+      aria-hidden={!shouldShow}
+      tabIndex={shouldShow ? 0 : -1}
     >
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 5l-7 7h4v7h6v-7h4z" />
