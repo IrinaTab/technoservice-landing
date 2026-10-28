@@ -1,63 +1,14 @@
 import type { ReactNode } from 'react'
-
-// Иконка "Заправка картриджей"
-const CartridgeIcon = (
-    <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <path d="M6 9V2h12v7" />
-        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-        <rect x="6" y="14" width="12" height="8" />
-    </svg>
-)
-
-// Иконка "Ремонт оргтехники и ноутбуков"
-const RepairIcon = (
-    <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-    </svg>
-)
-
-// Иконка "Комплексное обслуживание предприятий"
-const EnterpriseIcon = (
-    <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
-    </svg>
-)
+import {
+    CartridgeIcon,
+    RepairIcon,
+    EnterpriseIcon,
+} from '../components/ui/Icon/icons'
 
 export interface Service {
     id: string
     title: string
     icon: ReactNode
-    modalServiceName: string
     perks: string[]
     details?: string
     detailsSecond?: string
@@ -73,8 +24,7 @@ export const servicesData: Service[] = [
     {
         id: 'cartridge',
         title: 'Заправка картриджей',
-        icon: CartridgeIcon,
-        modalServiceName: 'Заправка картриджей',
+        icon: <CartridgeIcon />,
         perks: [
             'Быстрая заправка от 15 минут премиальным тонером',
             'Обязательная полная очистка бункера и замена чипов',
@@ -92,8 +42,7 @@ export const servicesData: Service[] = [
     {
         id: 'repair',
         title: 'Ремонт оргтехники и ноутбуков',
-        icon: RepairIcon,
-        modalServiceName: 'Ремонт оргтехники и ноутбуков',
+        icon: <RepairIcon />,
         perks: [
             'Бесплатная точная диагностика при согласии на ремонт',
             'Сложный компонентный ремонт плат, замена матриц и термопасты',
@@ -114,8 +63,7 @@ export const servicesData: Service[] = [
     {
         id: 'enterprise',
         title: 'Комплексное обслуживание предприятий',
-        icon: EnterpriseIcon,
-        modalServiceName: 'Обслуживание предприятий',
+        icon: <EnterpriseIcon />,
         perks: [
             'Официальный договор, закрывающие документы и безналичный расчёт',
             'Регулярная профилактика для исключения простоев офиса',
