@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-gallery && tsc -b && vite build",
+    "build": "npm run generate-gallery && npm run generate-hero && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
     "generate-gallery": "node scripts/generate-gallery.mjs",
-    "convert-to-webp": "node scripts/convert-to-webp.mjs"
+    "convert-to-webp": "node scripts/convert-to-webp.mjs",
+    "generate-hero": "node scripts/generate-hero-sizes.mjs"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^2.2.0",

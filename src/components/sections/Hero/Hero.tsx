@@ -91,12 +91,23 @@ export const Hero = () => {
           <div className="hero-box-banner">
             <div className="hero-banner-wrapper">
               <picture>
-                <source srcSet="/images/hero/banner.webp" type="image/webp" />
+                <source
+                  type="image/webp"
+                  srcSet="/images/hero/banner-400.webp 400w,
+                    /images/hero/banner-800.webp 800w,
+                    /images/hero/banner-1100.webp 1100w"
+                  sizes="(max-width: 768px) 100vw,
+                    (max-width: 1024px) 90vw,
+                    720px"
+                />
                 <img
                   className="banner"
                   src="/images/hero/banner.jpg"
                   alt="Ремонт оргтехники и заправка картриджей в Мариуполе"
+                  width={1100}
+                  height={558}
                   loading="eager"
+                  fetchPriority="high"
                 />
               </picture>
             </div>
