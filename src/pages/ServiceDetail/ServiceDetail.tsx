@@ -26,8 +26,6 @@ export const ServiceDetail = () => {
         return <div className="container">Сервис не найден.</div>
     }
 
-    const imageSrc = service.png ?? `/images/services/${service.id}.webp`
-
     const details = [
         service.details,
         service.detailsSecond,
@@ -75,7 +73,7 @@ export const ServiceDetail = () => {
 
                     <div className="service-detail-right">
                         <img
-                            src={imageSrc}
+                            src={service.png}
                             alt={service.title}
                             loading="lazy"
                             className={`service-detail-img${zoomed ? ' zoomed' : ''}`}
