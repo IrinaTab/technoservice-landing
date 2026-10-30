@@ -164,16 +164,6 @@
     margin-bottom: 12px;
 }
 
-.form-captcha {
-    display: flex;
-    justify-content: center;
-    margin: 12px 0;
-}
-
-.form-captcha>div {
-    transform-origin: center;
-}
-
 @media (max-width: 480px) {
     .modal-overlay {
         padding: 8px;

@@ -13,7 +13,6 @@
     "generate-hero": "node scripts/generate-hero-sizes.mjs"
   },
   "dependencies": {
-    "@hcaptcha/react-hcaptcha": "^2.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-metrika": "^1.2.0",

@@ -14,16 +14,14 @@ import { formatPhone } from '../utils/formatPhone'
 
 const DEFAULT_SERVICE = 'Заправка картриджей'
 const YANDEX_METRIKA_ID = Number(import.meta.env.VITE_YANDEX_METRIKA_ID) || 0
-
-// Минимальное количество цифр в номере (11 — для РФ: 7 + 10 цифр)
 const PHONE_MIN_DIGITS = 11
 
 export interface ModalFormData {
     name?: string
     phone?: string
-    email?: string
     service?: string
     comment?: string
+    website?: string // honeypot
 }
 
 export interface ModalContextValue {
@@ -34,7 +32,6 @@ export interface ModalContextValue {
     formSubmitting: boolean
     formError: string | null
     formData: Partial<ModalFormData>
-    captchaToken: string | null
 
     openContactModal: () => void
     closeContactModal: () => void
@@ -45,7 +42,6 @@ export interface ModalContextValue {
     ) => void
     handlePhoneChange: (e: ChangeEvent<HTMLInputElement>) => void
     handleSubmit: (e: FormEvent) => void
-    setCaptchaToken: (token: string | null) => void
 }
 
 const ModalContext = createContext<ModalContextValue | null>(null)
@@ -58,7 +54,6 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     const [formSubmitting, setFormSubmitting] = useState(false)
     const [formError, setFormError] = useState<string | null>(null)
     const [formData, setFormData] = useState<Partial<ModalFormData>>({})
-    const [captchaToken, setCaptchaToken] = useState<string | null>(null)
 
     const openContactModal = useCallback(() => {
         setIsContactModalOpen(true)
@@ -80,7 +75,6 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
         setFormSubmitting(false)
         setFormError(null)
         setFormData({})
-        setCaptchaToken(null)
     }, [])
 
     const handleInputChange = useCallback(
@@ -108,7 +102,13 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
             e.preventDefault()
             setFormError(null)
 
-            // ===== Клиентская валидация телефона =====
+            // ===== Honeypot: если поле website заполнено — это бот =====
+            if (formData.website) {
+                setFormSubmitted(true)
+                return
+            }
+
+            // ===== Валидация телефона =====
             const phoneDigits = (formData.phone || '').replace(/\D/g, '')
             if (phoneDigits.length < PHONE_MIN_DIGITS) {
                 setFormError(
@@ -124,7 +124,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
                 phone: formData.phone || '',
                 service: formData.service || selectedService,
                 comment: formData.comment || '',
-                captchaToken: captchaToken || '',
+                website: formData.website || '',
             })
 
             setFormSubmitting(false)
@@ -139,7 +139,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
                 )
             }
         },
-        [formData, selectedService, captchaToken]
+        [formData, selectedService]
     )
 
     const value = useMemo<ModalContextValue>(
@@ -151,7 +151,6 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
             formSubmitting,
             formError,
             formData,
-            captchaToken,
             openContactModal,
             closeContactModal,
             openRequestModal,
@@ -159,7 +158,6 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
             handleInputChange,
             handlePhoneChange,
             handleSubmit,
-            setCaptchaToken,
         }),
         [
             isContactModalOpen,
@@ -169,7 +167,6 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
             formSubmitting,
             formError,
             formData,
-            captchaToken,
             openContactModal,
             closeContactModal,
             openRequestModal,

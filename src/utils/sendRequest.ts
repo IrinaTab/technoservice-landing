@@ -1,111 +1,56 @@
-import { sendTelegramMessage } from './sendTelegramMessage'
-
 interface SendRequestParams {
     name: string
     phone: string
     service?: string
     comment?: string
-    captchaToken?: string
+    website?: string // honeypot
 }
 
 interface SendRequestResult {
     success: boolean
-    channel: 'telegram' | 'web3forms' | 'none'
     error?: string
 }
 
-const WEB3FORMS_TIMEOUT_MS = 10000
+const TIMEOUT_MS = 10000
 
-/**
- * Отправляет заявку:
- * 1. Сначала Telegram (основной канал).
- * 2. Если Telegram не сработал (ошибка/таймаут) — Web3Forms (email).
- */
 export const sendRequest = async ({
     name,
     phone,
     service,
     comment,
-    captchaToken,
+    website,
 }: SendRequestParams): Promise<SendRequestResult> => {
-    // ===== 1. Telegram =====
-    try {
-        const telegramSuccess = await sendTelegramMessage({
-            name,
-            phone,
-            service,
-            comment,
-        })
-        if (telegramSuccess) {
-            return { success: true, channel: 'telegram' }
-        }
-    } catch (err) {
-        console.warn('[sendRequest] Telegram не сработал, пробуем Email:', err)
-    }
-
-    // ===== 2. Web3Forms (резерв) =====
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
-
-    if (!accessKey) {
-        console.error('[sendRequest] Не задан VITE_WEB3FORMS_ACCESS_KEY')
-        return {
-            success: false,
-            channel: 'none',
-            error: 'Не удалось отправить заявку. Позвоните нам: +7 (949) 712 80 83',
-        }
-    }
-
-    // AbortController с таймаутом — если Web3Forms не ответил за 10 сек, прерываем
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), WEB3FORMS_TIMEOUT_MS)
+    const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS)
 
     try {
-        const response = await fetch('https://api.web3forms.com/submit', {
+        // Стучимся на наш собственный Vercel API
+        const response = await fetch('/api/send-telegram', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: JSON.stringify({
-                access_key: accessKey,
-                subject: '🔔 Новая заявка с сайта ОргТехСервис',
-                from_name: 'Сайт ОргТехСервис',
-                name,
-                phone,
-                service: service || '—',
-                comment: comment || '—',
-                'h-captcha-response': captchaToken || '',
-            }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, phone, service, comment, website }),
             signal: controller.signal,
         })
 
         const data = await response.json()
 
         if (data.success) {
-            return { success: true, channel: 'web3forms' }
+            return { success: true }
         }
 
-        console.error('[sendRequest] Web3Forms ошибка:', data)
         return {
             success: false,
-            channel: 'none',
             error: 'Не удалось отправить заявку. Позвоните нам: +7 (949) 712 80 83',
         }
     } catch (err) {
         if (err instanceof DOMException && err.name === 'AbortError') {
-            console.warn(
-                `[sendRequest] Таймаут Web3Forms ${WEB3FORMS_TIMEOUT_MS}мс`
-            )
             return {
                 success: false,
-                channel: 'none',
                 error: 'Сервер не отвечает. Позвоните нам: +7 (949) 712 80 83',
             }
         }
-        console.error('[sendRequest] Ошибка сети Web3Forms:', err)
         return {
             success: false,
-            channel: 'none',
             error: 'Не удалось отправить заявку. Позвоните нам: +7 (949) 712 80 83',
         }
     } finally {

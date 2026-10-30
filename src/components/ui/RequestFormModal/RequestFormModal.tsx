@@ -1,12 +1,8 @@
-import HCaptcha from '@hcaptcha/react-hcaptcha'
 import { serviceOptions } from '../../../data/form'
 import { Modal } from '../Modal'
 import { CheckIcon } from '../Icon'
 import { useModalContext } from '../../../context/ModalContext'
 import '../../../styles/components/Modal.css'
-
-// Sitekey из hCaptcha Dashboard
-const HCAPTCHA_SITEKEY = import.meta.env.VITE_HCAPTCHA_SITEKEY || ''
 
 export const RequestFormModal = () => {
     const {
@@ -20,7 +16,6 @@ export const RequestFormModal = () => {
         handleInputChange,
         handlePhoneChange,
         handleSubmit,
-        setCaptchaToken,
     } = useModalContext()
 
     return (
@@ -68,7 +63,6 @@ export const RequestFormModal = () => {
                                 disabled={formSubmitting}
                                 inputMode="tel"
                                 autoComplete="tel"
-                                // 11 цифр: +7 (XXX) XXX-XX-XX
                                 pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
                                 title="Введите номер полностью: +7 (999) 123-45-67"
                             />
@@ -110,6 +104,27 @@ export const RequestFormModal = () => {
                             />
                         </div>
 
+                        {/*
+                          Honeypot: скрытое поле. Реальные пользователи его не видят,
+                          а боты часто заполняют все поля подряд. Если оно заполнено —
+                          отклоняем отправку в handleSubmit.
+                        */}
+                        <input
+                            type="text"
+                            name="website"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            aria-hidden="true"
+                            style={{
+                                position: 'absolute',
+                                left: '-9999px',
+                                opacity: 0,
+                                pointerEvents: 'none',
+                            }}
+                            value={formData.website || ''}
+                            onChange={handleInputChange}
+                        />
+
                         <div className="modal-polit">
                             <input
                                 type="checkbox"
@@ -125,17 +140,6 @@ export const RequestFormModal = () => {
                                     Политикой конфиденциальности*
                                 </a>
                             </label>
-                        </div>
-
-                        {/* hCaptcha widget */}
-                        <div className="form-group form-captcha">
-                            <HCaptcha
-                                sitekey={HCAPTCHA_SITEKEY}
-                                onVerify={setCaptchaToken}
-                                onExpire={() => setCaptchaToken(null)}
-                                theme="light"
-                                size="normal"
-                            />
                         </div>
 
                         {formError && (
