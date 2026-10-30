@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { servicesData } from '../../data/services'
 import { CheckIcon, BackIcon } from '../../components/ui/Icon'
@@ -17,10 +17,6 @@ export const ServiceDetail = () => {
     useDocumentTitle(
         service ? `${service.title} — ОргТехСервис` : 'Услуга не найдена — ОргТехСервис'
     )
-
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
 
     if (!service) {
         return <div className="container">Сервис не найден.</div>
