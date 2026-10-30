@@ -22,7 +22,8 @@ export const GalleryItem = memo(function GalleryItem({
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
+        // Поддерживаем и Enter, и Space (стандарт поведения для role="button")
+        if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
           onClick()
         }
