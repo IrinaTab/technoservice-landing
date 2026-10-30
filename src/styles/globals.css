@@ -12,6 +12,7 @@ html {
 
 body {
     font-family: var(--font-family);
+    /* Базовый фон: картинка прибита (fixed) и покрывает экран (cover) */
     background:
         linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.95)),
         url('/images/bg-main.jpg') center/cover no-repeat fixed;
@@ -21,6 +22,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
     padding-top: 86px;
     overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* На мобильных оставляем эффект fixed, но меняем масштаб, 
+   чтобы картинка не была гигантской (auto 100% — по высоте экрана, ширина авто) */
+@media (max-width: 1024px) {
+    body {
+        background:
+            linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.95)),
+            url('/images/bg-main.jpg') center / auto 100% no-repeat fixed;
+    }
 }
 
 .container {
