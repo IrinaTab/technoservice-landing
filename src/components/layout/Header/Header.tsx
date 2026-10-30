@@ -10,7 +10,7 @@ export const Header = () => {
     <header className="header">
       <div className="container header-container">
         {/* Logo */}
-        <Link to="/main" className="logo" aria-label="ОргТехСервис — На главную">
+        <Link to="/" className="logo" aria-label="ОргТехСервис — На главную">
           <div className="logo-badge">
             <img src="/images/logo.svg" alt="ОргТехСервис" className="logo-image" />
           </div>

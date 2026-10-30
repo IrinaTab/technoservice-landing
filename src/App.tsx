@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { MetrikaCounter, ym } from 'react-metrika'
 import { ScrollToTopButton } from './components/layout/ScrollToTop'
 import { Header } from './components/layout/Header'
@@ -83,7 +83,6 @@ function App() {
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/main" element={<Navigate to="/" replace />} />
             <Route path="/service/:id" element={<ServiceDetail />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
