@@ -5,9 +5,11 @@ interface SendTelegramMessageParams {
     comment?: string
 }
 
+const TELEGRAM_TIMEOUT_MS = 8000
+
 /**
  * Отправляет заявку в Telegram-бот.
- * Возвращает true при успехе, false при ошибке.
+ * Возвращает true при успехе, false при ошибке или таймауте.
  */
 export const sendTelegramMessage = async ({
     name,
@@ -36,6 +38,10 @@ export const sendTelegramMessage = async ({
         `🕒 *Время:* ${new Date().toLocaleString('ru-RU')}`,
     ].join('\n')
 
+    // AbortController с таймаутом — если Telegram не ответил за 8 сек, прерываем
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), TELEGRAM_TIMEOUT_MS)
+
     try {
         const response = await fetch(
             `https://api.telegram.org/bot${token}/sendMessage`,
@@ -47,6 +53,7 @@ export const sendTelegramMessage = async ({
                     text,
                     parse_mode: 'Markdown',
                 }),
+                signal: controller.signal,
             }
         )
 
@@ -59,7 +66,15 @@ export const sendTelegramMessage = async ({
 
         return true
     } catch (err) {
-        console.error('[sendTelegramMessage] Ошибка сети:', err)
+        if (err instanceof DOMException && err.name === 'AbortError') {
+            console.warn(
+                `[sendTelegramMessage] Таймаут ${TELEGRAM_TIMEOUT_MS}мс — переключаемся на резервный канал`
+            )
+        } else {
+            console.error('[sendTelegramMessage] Ошибка сети:', err)
+        }
         return false
+    } finally {
+        clearTimeout(timeoutId)
     }
 }

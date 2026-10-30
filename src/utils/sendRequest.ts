@@ -14,10 +14,12 @@ interface SendRequestResult {
     error?: string
 }
 
+const WEB3FORMS_TIMEOUT_MS = 10000
+
 /**
  * Отправляет заявку:
  * 1. Сначала Telegram (основной канал).
- * 2. Если Telegram не сработал — Web3Forms (email).
+ * 2. Если Telegram не сработал (ошибка/таймаут) — Web3Forms (email).
  */
 export const sendRequest = async ({
     name,
@@ -53,6 +55,10 @@ export const sendRequest = async ({
         }
     }
 
+    // AbortController с таймаутом — если Web3Forms не ответил за 10 сек, прерываем
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), WEB3FORMS_TIMEOUT_MS)
+
     try {
         const response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
@@ -70,6 +76,7 @@ export const sendRequest = async ({
                 comment: comment || '—',
                 'h-captcha-response': captchaToken || '',
             }),
+            signal: controller.signal,
         })
 
         const data = await response.json()
@@ -85,11 +92,23 @@ export const sendRequest = async ({
             error: 'Не удалось отправить заявку. Позвоните нам: +7 (949) 712 80 83',
         }
     } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') {
+            console.warn(
+                `[sendRequest] Таймаут Web3Forms ${WEB3FORMS_TIMEOUT_MS}мс`
+            )
+            return {
+                success: false,
+                channel: 'none',
+                error: 'Сервер не отвечает. Позвоните нам: +7 (949) 712 80 83',
+            }
+        }
         console.error('[sendRequest] Ошибка сети Web3Forms:', err)
         return {
             success: false,
             channel: 'none',
             error: 'Не удалось отправить заявку. Позвоните нам: +7 (949) 712 80 83',
         }
+    } finally {
+        clearTimeout(timeoutId)
     }
 }
