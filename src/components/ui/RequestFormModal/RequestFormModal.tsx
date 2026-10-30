@@ -66,6 +66,11 @@ export const RequestFormModal = () => {
                                 value={formData.phone || ''}
                                 onChange={handlePhoneChange}
                                 disabled={formSubmitting}
+                                inputMode="tel"
+                                autoComplete="tel"
+                                // 11 цифр: +7 (XXX) XXX-XX-XX
+                                pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+                                title="Введите номер полностью: +7 (999) 123-45-67"
                             />
                         </div>
 

@@ -15,6 +15,9 @@ import { formatPhone } from '../utils/formatPhone'
 const DEFAULT_SERVICE = 'Заправка картриджей'
 const YANDEX_METRIKA_ID = Number(import.meta.env.VITE_YANDEX_METRIKA_ID) || 0
 
+// Минимальное количество цифр в номере (11 — для РФ: 7 + 10 цифр)
+const PHONE_MIN_DIGITS = 11
+
 export interface ModalFormData {
     name?: string
     phone?: string
@@ -104,6 +107,16 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
         async (e: FormEvent) => {
             e.preventDefault()
             setFormError(null)
+
+            // ===== Клиентская валидация телефона =====
+            const phoneDigits = (formData.phone || '').replace(/\D/g, '')
+            if (phoneDigits.length < PHONE_MIN_DIGITS) {
+                setFormError(
+                    'Введите номер телефона полностью: +7 (999) 123-45-67'
+                )
+                return
+            }
+
             setFormSubmitting(true)
 
             const result = await sendRequest({
