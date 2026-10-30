@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { servicesData } from '../../data/services'
 import { CheckIcon, BackIcon } from '../../components/ui/Icon'
+import { PhotoModal } from '../../components/ui/PhotoModal'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { useModalContext } from '../../context/ModalContext'
 import './ServiceDetail.css'
@@ -10,7 +11,7 @@ import '../../styles/components/Button.css'
 export const ServiceDetail = () => {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
-    const [zoomed, setZoomed] = useState(false)
+    const [modalSrc, setModalSrc] = useState<string | null>(null)
     const { openRequestModal } = useModalContext()
     const service = servicesData.find((s) => s.id === id)
 
@@ -72,8 +73,18 @@ export const ServiceDetail = () => {
                             src={service.png}
                             alt={service.title}
                             loading="lazy"
-                            className={`service-detail-img${zoomed ? ' zoomed' : ''}`}
-                            onClick={() => setZoomed(!zoomed)}
+                            className="service-detail-img"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => setModalSrc(service.png || null)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault()
+                                    setModalSrc(service.png || null)
+                                }
+                            }}
+                            aria-label="Открыть изображение на весь экран"
                         />
                     </div>
                 </div>
@@ -103,6 +114,10 @@ export const ServiceDetail = () => {
                     </div>
                 </div>
             </div>
+
+            {modalSrc && (
+                <PhotoModal src={modalSrc} onClose={() => setModalSrc(null)} />
+            )}
         </section>
     )
 }

@@ -73,10 +73,6 @@
   display: block;
 }
 
-.service-detail-img.zoomed {
-  transform: scale(1.2);
-}
-
 @media (max-width: 1024px) {
   .service-detail-content {
     flex-direction: column;
