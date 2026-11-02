@@ -71,7 +71,6 @@ const content = `// ⚠️ ЭТОТ ФАЙЛ СГЕНЕРИРОВАН АВТОМ
 // Примечание: .webp-версии подставляются автоматически в GalleryItem
 // и PhotoModal через <picture>. В этом файле только оригиналы (.jpg/.png).
 //
-// Сгенерировано: ${new Date().toISOString()}
 // Всего изображений: ${paths.length}
 
 export const galleryImages: string[] = ${JSON.stringify(paths, null, 2)}
